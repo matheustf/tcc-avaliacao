@@ -35,19 +35,29 @@ public class AvaliacaoController {
 		this.tokenValidate = tokenValidate;
 	}
 
-	@GetMapping("")
+	@GetMapping("/cliente")
 	public ResponseEntity<List<AvaliacaoDTO>> consultarPorCliente(@RequestHeader(value = "x-access-token") String token) throws AvaliacaoException {
-		tokenValidate.tokenValidate(token);
+		//tokenValidate.tokenValidate(token);
 		
 		List<AvaliacaoDTO> avaliacoesDTO = avaliacaoService.consultarPorCliente(token);
 
 		return new ResponseEntity<List<AvaliacaoDTO>>(avaliacoesDTO, HttpStatus.OK);
 	}
-
-	@PostMapping("")
-	public ResponseEntity<AvaliacaoDTO> incluir(@RequestBody @Valid AvaliacaoDTO avaliacaoDTO, @RequestHeader(value = "x-access-token") String token) throws AvaliacaoException {
-		tokenValidate.tokenValidate(token);
+	
+	@GetMapping("")
+	public ResponseEntity<List<AvaliacaoDTO>> buscarTodos(@RequestHeader(value = "x-access-token") String token) throws AvaliacaoException {
+		//tokenValidate.tokenValidate(token);
 		
+		List<AvaliacaoDTO> avaliacoesDTO = avaliacaoService.buscarTodos();
+
+		return new ResponseEntity<List<AvaliacaoDTO>>(avaliacoesDTO, HttpStatus.OK);
+	}
+
+
+	@PostMapping("") //, @RequestHeader(value = "x-access-token") String token
+	public ResponseEntity<AvaliacaoDTO> incluir(@RequestBody @Valid AvaliacaoDTO avaliacaoDTO) throws AvaliacaoException {
+		//tokenValidate.tokenValidate(token);
+		String token = "";
 		AvaliacaoDTO responseAvaliacaoDTO = avaliacaoService.incluir(avaliacaoDTO, token);
 		return new ResponseEntity<AvaliacaoDTO>(responseAvaliacaoDTO, HttpStatus.CREATED);
 	}
@@ -63,7 +73,7 @@ public class AvaliacaoController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<AvaliacaoDTO> consultar(@PathVariable(value = "id") String idAvaliacao, @RequestHeader(value = "x-access-token") String token) throws AvaliacaoException {
-		tokenValidate.tokenSimpleValidate(token);
+		//tokenValidate.tokenSimpleValidate(token);
 		
 		AvaliacaoDTO avaliacaoDTO = avaliacaoService.consultar(idAvaliacao);
 

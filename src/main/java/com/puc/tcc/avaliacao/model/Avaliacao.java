@@ -32,7 +32,7 @@ public class Avaliacao implements Serializable{
 	private String idCliente;
 	
 	@NotNull
-	private String idPedido;
+	private String idProduto;
 	
 	@NotNull
 	private int notaDeSatisfacao;

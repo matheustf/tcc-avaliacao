@@ -17,7 +17,7 @@ public interface AvaliacaoService {
 	
 	ResponseEntity<AvaliacaoDTO> deletar(String id) throws AvaliacaoException;
 
-	List<AvaliacaoDTO> buscarTodos();
+	List<AvaliacaoDTO> buscarTodos() throws AvaliacaoException;
 
 	List<AvaliacaoDTO> consultarPorCliente(String token) throws AvaliacaoException;
 

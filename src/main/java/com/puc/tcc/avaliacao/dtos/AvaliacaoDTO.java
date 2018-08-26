@@ -20,7 +20,7 @@ public class AvaliacaoDTO {
 	private String idCliente;
 	
 	@NotNull()
-	private String idPedido;
+	private String idProduto;
 	
 	@NotNull()
 	private int notaDeSatisfacao;

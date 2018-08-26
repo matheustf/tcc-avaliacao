@@ -59,7 +59,7 @@ public class AvaliacaoServiceImpl implements AvaliacaoService {
 	public AvaliacaoDTO incluir(AvaliacaoDTO avaliacaoDTO, String token) throws AvaliacaoException {
 		Avaliacao avaliacao = modelMapper().map(avaliacaoDTO, Avaliacao.class);
 		
-		avaliacao.setIdCliente(Util.getPagameterToken(token, "idCadastro"));
+		//avaliacao.setIdCliente(Util.getPagameterToken(token, "idCadastro"));
 		avaliacao.setDataDaAvaliacao(Util.dataNow());
 		avaliacao.setCodigoDaAvaliacao(Util.gerarCodigo("AVALIACAO",5).toUpperCase());
 		
@@ -125,4 +125,5 @@ public class AvaliacaoServiceImpl implements AvaliacaoService {
 
 		return avaliacoesDTO;
 	}
+	
 }
