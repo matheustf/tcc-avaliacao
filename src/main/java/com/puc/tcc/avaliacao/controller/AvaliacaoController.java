@@ -43,6 +43,15 @@ public class AvaliacaoController {
 
 		return new ResponseEntity<List<AvaliacaoDTO>>(avaliacoesDTO, HttpStatus.OK);
 	}
+
+	@GetMapping("/compra/{idCompra}")
+	public ResponseEntity<AvaliacaoDTO> consultarPorIdCompra(@PathVariable(value = "idCompra") String idCompra) throws AvaliacaoException {
+		//tokenValidate.tokenValidate(token);
+		
+		AvaliacaoDTO avaliacoesDTO = avaliacaoService.consultarPorIdCompra(idCompra);
+		
+		return new ResponseEntity<AvaliacaoDTO>(avaliacoesDTO, HttpStatus.OK);
+	}
 	
 	@GetMapping("")
 	public ResponseEntity<List<AvaliacaoDTO>> buscarTodos(@RequestHeader(value = "x-access-token") String token) throws AvaliacaoException {
@@ -62,11 +71,11 @@ public class AvaliacaoController {
 		return new ResponseEntity<AvaliacaoDTO>(responseAvaliacaoDTO, HttpStatus.CREATED);
 	}
 
-	@PutMapping("/{id}")
-	public ResponseEntity<AvaliacaoDTO> atualizar(@PathVariable(value = "id") String id, @RequestBody @Valid AvaliacaoDTO avaliacaoDTODetails, @RequestHeader(value = "x-access-token") String token) throws AvaliacaoException {
-		tokenValidate.tokenValidate(token);
+	@PutMapping("/compra/{idCompra}")
+	public ResponseEntity<AvaliacaoDTO> atualizar(@PathVariable(value = "idCompra") String idCompra, @RequestBody @Valid AvaliacaoDTO avaliacaoDTODetails) throws AvaliacaoException {
+		//tokenValidate.tokenValidate(token);
 		
-		AvaliacaoDTO avaliacaoDTO = avaliacaoService.atualizar(id, avaliacaoDTODetails);
+		AvaliacaoDTO avaliacaoDTO = avaliacaoService.atualizar(idCompra, avaliacaoDTODetails);
 
 		return new ResponseEntity<AvaliacaoDTO>(avaliacaoDTO, HttpStatus.NO_CONTENT);
 	}

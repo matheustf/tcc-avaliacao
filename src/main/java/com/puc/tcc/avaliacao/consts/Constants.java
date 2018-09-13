@@ -9,4 +9,6 @@ public class Constants {
 	public static final String UNAUTHORIZED = "Usuario não autorizado ";
 	
 	public static final String SERVER_ERROR = "Desculpe, temos um promblema em nosso servidor. Por favor, retorne mais tarde.";
+
+	public static final String AVALIACAO_EXISTENTE = "Avaliacao já existe no sistema";
 }

@@ -23,6 +23,9 @@ public class AvaliacaoDTO {
 	private String idProduto;
 	
 	@NotNull()
+	private String idCompra;
+	
+	@NotNull()
 	private int notaDeSatisfacao;
 	
 	@NotNull()

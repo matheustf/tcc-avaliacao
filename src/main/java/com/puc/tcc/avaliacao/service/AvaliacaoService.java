@@ -13,12 +13,14 @@ public interface AvaliacaoService {
 	
 	AvaliacaoDTO incluir(AvaliacaoDTO avaliacaoDTO, String token) throws AvaliacaoException;
 	
-	AvaliacaoDTO atualizar(String id, AvaliacaoDTO avaliacaoDTODetails) throws AvaliacaoException;
+	AvaliacaoDTO atualizar(String idCompra, AvaliacaoDTO avaliacaoDTODetails) throws AvaliacaoException;
 	
 	ResponseEntity<AvaliacaoDTO> deletar(String id) throws AvaliacaoException;
 
 	List<AvaliacaoDTO> buscarTodos() throws AvaliacaoException;
 
 	List<AvaliacaoDTO> consultarPorCliente(String token) throws AvaliacaoException;
+
+	AvaliacaoDTO consultarPorIdCompra(String idCompra) throws AvaliacaoException;
 
 }

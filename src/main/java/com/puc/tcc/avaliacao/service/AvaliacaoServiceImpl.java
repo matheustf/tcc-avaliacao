@@ -43,6 +43,17 @@ public class AvaliacaoServiceImpl implements AvaliacaoService {
 		
 		return avaliacaoDTO;
 	}
+	
+	@Override
+	public AvaliacaoDTO consultarPorIdCompra(String idCompra) throws AvaliacaoException {
+		
+		Optional<Avaliacao> optional = avaliacaoRepository.findByIdCompra(idCompra);
+		Avaliacao avaliacao = validarAvaliacao(optional);
+		
+		AvaliacaoDTO avaliacaoDTO = modelMapper().map(avaliacao, AvaliacaoDTO.class);
+		
+		return avaliacaoDTO;
+	}
 
 	@Override
 	public List<AvaliacaoDTO> buscarTodos() {
@@ -59,6 +70,8 @@ public class AvaliacaoServiceImpl implements AvaliacaoService {
 	public AvaliacaoDTO incluir(AvaliacaoDTO avaliacaoDTO, String token) throws AvaliacaoException {
 		Avaliacao avaliacao = modelMapper().map(avaliacaoDTO, Avaliacao.class);
 		
+		verificarSeAvaliacaoJaExiste(avaliacao.getIdCompra());
+		
 		//avaliacao.setIdCliente(Util.getPagameterToken(token, "idCadastro"));
 		avaliacao.setDataDaAvaliacao(Util.dataNow());
 		avaliacao.setCodigoDaAvaliacao(Util.gerarCodigo("AVALIACAO",5).toUpperCase());
@@ -69,17 +82,24 @@ public class AvaliacaoServiceImpl implements AvaliacaoService {
 		return modelMapper().map(avaliacao, AvaliacaoDTO.class);
 	}
 
+	private void verificarSeAvaliacaoJaExiste(String idCompra) throws AvaliacaoException {
+		Optional<Avaliacao> optional = avaliacaoRepository.findByIdCompra(idCompra);
+		if (optional.isPresent()) {
+			throw new AvaliacaoException(HttpStatus.CONFLICT, Constants.AVALIACAO_EXISTENTE);
+		}
+	}
+
 	@Override
-	public AvaliacaoDTO atualizar(String id, AvaliacaoDTO avaliacaoDTODetails) throws AvaliacaoException {
+	public AvaliacaoDTO atualizar(String idCompra, AvaliacaoDTO avaliacaoDTODetails) throws AvaliacaoException {
 		
-		Optional<Avaliacao> optional = avaliacaoRepository.findById(id);
+		Optional<Avaliacao> optional = avaliacaoRepository.findByIdCompra(idCompra);
 		Avaliacao avaliacao = validarAvaliacao(optional);
 		
 		Avaliacao avaliacaoDetails = modelMapper().map(avaliacaoDTODetails, Avaliacao.class);
 
+		avaliacaoDetails.setDataDaAvaliacao(Util.dataNow());
+		
 		avaliacao = avaliacao.update(avaliacao, avaliacaoDetails);
-		avaliacao.setDataDaAvaliacao(Util.dataNow());
-
 		avaliacaoRepository.save(avaliacao);
 
 		AvaliacaoDTO avaliacaoDTO = modelMapper().map(avaliacao, AvaliacaoDTO.class);

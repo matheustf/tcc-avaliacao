@@ -18,9 +18,6 @@ import lombok.NoArgsConstructor;
 @Document
 public class Avaliacao implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3588012881987809662L;
 
 	private String id;
@@ -33,6 +30,9 @@ public class Avaliacao implements Serializable{
 	
 	@NotNull
 	private String idProduto;
+	
+	@NotNull
+	private String idCompra;
 	
 	@NotNull
 	private int notaDeSatisfacao;
@@ -49,7 +49,7 @@ public class Avaliacao implements Serializable{
 	public Avaliacao update(Avaliacao avaliacao, Avaliacao detailsAvaliacao) {
 		avaliacao.setTitulo(detailsAvaliacao.getTitulo());
 		avaliacao.setNotaDeSatisfacao(avaliacao.getNotaDeSatisfacao());
-		avaliacao.setTitulo(detailsAvaliacao.getDescricao());
+		avaliacao.setDescricao(detailsAvaliacao.getDescricao());
 		avaliacao.setDataDaAvaliacao(detailsAvaliacao.getDataDaAvaliacao());
 		
 		return avaliacao;

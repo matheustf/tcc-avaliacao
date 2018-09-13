@@ -14,4 +14,6 @@ public interface AvaliacaoRepository extends MongoRepository<Avaliacao, String> 
 
 	Optional<List<Avaliacao>> findByIdCliente(String idCliente);
 
+	Optional<Avaliacao> findByIdCompra(String idCompra);
+
 }
